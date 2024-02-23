@@ -45,6 +45,6 @@
    -- SELECT 1 FROM branch_supplier 
    -- WHERE branch_id = 1 AND supply_type = 'Insurance')
 --select * from employee1
---INSERT INTO client (name) VALUES ('Zhang Wei') ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name || 'shan'
+--INSERT INTO client (first_name,last_name) VALUES ('Zhang' , 'Wei') ON CONFLICT (first_name,last_name) DO UPDATE SET first_name = EXCLUDED.first_name || 'shan'
 --select * from client
 
