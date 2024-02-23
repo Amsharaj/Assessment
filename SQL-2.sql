@@ -60,3 +60,71 @@
 --ALTER TABLE Customer ADD CONSTRAINT CustomerName UNIQUE (Customer_FName, Customer_Lname);
  --select * from customer
 
+
+
+
+
+
+
+---------------------------------------------------------------SECOND ------------------------------------------
+
+--CREATE TABLE imarticus_student (stud_id INT PRIMARY KEY,stud_name VARCHAR(50),Qualification varchar(10),email varchar(20),contact bigint,course_id int, Date_of_joining date)
+--select * from imarticus_student
+
+--insert into imarticus_student values (1,'Fathima','MCA','fathima@gmail.com',9876543210,1,'2024-02-12'),
+--(2,'Raveena','BSc','raveena@gmail.com',8776543219,2,'2024-02-20'),
+--(3,'Vinoth','MSc','vinoth@gmail.com',8776543210,1,'2024-01-17'),
+--(4,'Tarun','BCom','tarun@gmail.com',6778976543,3,'2023-09-24'),
+--(5,'Rajesh','BCom','rajesh@gmail.com',8779023456,3,'2023-08-17'),
+--(6,'Kalyani','BSc','kalyani@gmail.com',7889012345,2,'2023-10-23'),
+--(7,'Hemanth','MSc','hemanth@gmail.com',8776543210,1,'2023-11-27')
+--select * from imarticus_student
+
+
+--CREATE TABLE Course (course_id INT PRIMARY KEY,Course_name VARCHAR(50),Fees bigint,Duration varchar)
+
+--INSERT INTO Course VALUES (1, 'FSD', 80000, '6 months'),
+  --     (2, 'PGA', 125000, '9 months'),
+    --   (3, 'Cibop', 90000, '6 months'),
+	  --  (4, 'Digital marketing', 85000, '4 months')
+		
+--select * from course
+
+-----------------------------MAXIMUM FEES----------------------------
+--SELECT MAX(Fees) AS MaxFees FROM Course
+
+---------------------------------TOTAL FEES---------------------------
+
+--SELECT SUM(Fees) AS TotalFees FROM Course
+
+-----------------------------FSD STUDENTS--------------------------------
+--SELECT std.stud_id, std.stud_name, c.Fees, c.Duration 
+--FROM imarticus_student std
+--JOIN Course c ON std.course_id = c.course_id
+--WHERE c.course_name = 'FSD'
+
+--------------------------------FSD AND PGA------------------------
+
+--SELECT std.stud_id, std.stud_name, c.Fees, c.Duration 
+--FROM imarticus_student std
+--JOIN Course c ON std.course_id = c.course_id
+--WHERE c.course_name IN ('PGA','FSD')
+
+----------------------------------DISPLAY DETAILS------------------------
+--SELECT std.*, c.course_id, c.course_name
+--FROM imarticus_student std
+--JOIN Course c ON std.course_id = c.course_id
+
+-----------------------------------4 to 7 ----------------------------------
+--SELECT * FROM imarticus_student ORDER BY stud_id OFFSET 3 LIMIT 4
+--------------------------------------combaine table---------------------------
+--SELECT std.*, c.* FROM imarticus_student std
+--JOIN course c ON std.course_id = c.course_id
+-------------------------------2023-10-11 to 2024-02-23-------------------------
+
+--SELECT * FROM imarticus_student
+--WHERE date_Of_joining BETWEEN '2023-10-11' AND '2024-02-23'
+
+-------------------------------START  R------------------------------------
+
+--SELECT * FROM imarticus_student WHERE stud_name LIKE 'R%'
