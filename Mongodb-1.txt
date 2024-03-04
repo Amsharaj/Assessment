@@ -1,0 +1,59 @@
+db.createCollection("Employee1")
+
+db.createCollection("personal")
+-----------------------------1-------------------------------
+db.Employee1.insertMany([
+    { "_id": 101, "emp_name": "John Smith", "role": "Team member", "salary": 40000 },
+    { "_id": 102, "emp_name": "Mark Antony", "role": "Team leader", "salary": 50000 },
+    { "_id": 103, "emp_name": "Jane Bloggs", "role": "Project leader", "salary": 60000 },
+    { "_id": 104, "emp_name": "Susan Zin", "role": "intern", "salary": 15000 }
+])
+
+db.personal.insertMany([
+    { "_id": 101, "street": "12, Main street", "city": "Coimbatore", "state": "Tamil Nadu" },
+    { "_id": 102, "street": "23, Tailor street", "city": "Bangalore", "state": "Karnataka" },
+    { "_id": 103, "street": "67, Baker’s Street", "city": "Pondicherry", "state": "Pondicherry" },
+    { "_id": 104, "street": "78, Lake view street", "city": "Kochi", "state": "Kerala" }
+])
+
+---------------------------------2----------------------------------
+
+db.Employee1.aggregate([
+    {
+        $lookup: {
+            from: "personal",
+            localField: "_id",
+            foreignField: "_id",
+            as: "personal_details"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            emp_name: 1,
+            salary: 1,
+            role: 1,
+            personal_details: { $arrayElemAt: ["$personal_details", 0] }
+        }
+    }
+])
+
+------------------------------------3---------------------------------------
+
+db.Employee1.updateOne({ _id: 103 }, { $set: { salary: 65000 } })
+
+----------------------------------4----------------------------------
+
+db.Employee1.find({ salary: { $gt: 40000 } })
+
+----------------------------------------5----------------------------------
+
+db.Employee1.find({ _id: { $in: [103, 104] } })
+
+--------------------------------------6---------------------------------------
+
+db.Employee1.find({ salary: { $lte: 50000 } }).sort({ emp_name: 1 })
+
+------------------------------------7------------------------------------------
+
+db.Employee1.find({}, { _id: 0, role: 1 })

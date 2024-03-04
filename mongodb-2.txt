@@ -1,0 +1,59 @@
+db.createCollection("customer")
+
+db.createCollection("Orders")
+
+--------------------------------------------1--------------------------------------------
+
+db.customer.insertMany([
+    { "_id": 101, "Customer Name": "Praveen", "City": "Coimbatore", "Address": "12, Jain Street", "Contact": 9765432190 },
+    { "_id": 102, "Customer Name": "Rattan", "City": "Delhi", "Address": "14, Nehru Street", "Contact": 9867854321 },
+    { "_id": 103, "Customer Name": "Charles", "City": "Mumbai", "Address": "67, Canal Street", "Contact": 8765412345 },
+    { "_id": 104, "Customer Name": "Tiger", "City": "Pune", "Address": "34, Mocha Street", "Contact": 7890123456 },
+    { "_id": 105, "Customer Name": "Kishore", "City": "Bangalore", "Address": "9, West Road", "Contact": 6789054321 }
+])
+
+db.Orders.insertMany([
+    {"_id":1, "Order No": 20123, "Order Date": "8/11/22", "Customer ID": 101, "Product": "Samsung Mobile", "Ship Date": "10/11/22", "Quantity": 1 },
+    {"_id":2, "Order No": 20124, "Order Date": "7/11/22", "Customer ID": 102, "Product": "Oppo Mobile", "Ship Date": "11/11/22", "Quantity": 2 },
+    {"_id":3, "Order No": 20125, "Order Date": "8/11/22", "Customer ID": 101, "Product": "VU TV", "Ship Date": "11/11/22", "Quantity": 1 },
+    {"_id":4, "Order No": 20126, "Order Date": "6/11/22", "Customer ID": 103, "Product": "iPhone 12", "Ship Date": "10/11/22", "Quantity": 2 },
+    {"_id":5, "Order No": 20127, "Order Date": "10/11/22", "Customer ID": 104, "Product": "iPad", "Ship Date": "12/11/22", "Quantity": 2 }
+])
+
+--------------------------------------------------------2------------------------------------------------------
+
+
+db.Orders.createIndex({"Product":1})
+
+-------------------------------------------------3---------------------------------------------
+
+db.Orders.find({ "Product": "iPad" })
+
+--------------------------------------------------4--------------------------------------------------------
+
+db.customer.updateOne({ "Customer Name": "Kishore" }, { $set: { Contact: "9876512345" } })
+
+---------------------------------------------5--------------------------------------------
+
+db.Orders.find({ "Order No": 20125, "Quantity": { $gt: 1 } })
+
+------------------------------------------6------------------------------------------
+
+db.customer.find().sort({ "Customer Name": 1 })
+
+--------------------------------------------7-----------------------------------------------
+
+db.Orders.find({},{ _id: 0, Product: 1, Quantity: 1 })
+
+-------------------------------------8---------------------------------
+
+db.Orders.updateOne({ "Order No": 20126, "Product": "iPhone 12" }, { $set: { "Product": "iPhone 14" } })
+
+-------------------------------------9------------------------------------------
+
+db.Orders.find({ "Quantity": { $ne: 2 } })
+
+----------------------------------------10----------------------------------------
+
+db.customer.deleteOne({ "City": "Pune" })
+
